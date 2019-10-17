@@ -1,0 +1,63 @@
+
+#
+
+# Swatch configuration file for constant monitoring
+
+#
+
+# Bad login attempts
+
+watchfor  /INVALID|REPEATED|INCOMPLETE/
+
+   echo
+
+   bell 3
+
+   exec "/usr/local/sbin/badloginfinger $0"
+
+watchfor /Priority\: ([1|2])/
+echo=normal
+mail=arorasakshiiit@gmail.com,subject=[SNORT] Priority $1 Alert
+# snort
+#watchfor /snort:/
+#   mail 100pallav@gmail.com,subject=Snort Alert!
+watchfor /snort:/
+mail f2016320@pilani.bits-pilani.ac.in,subject=Snort Alert!
+
+# Machine room temperature
+
+watchfor  /WizMON/
+
+   echo inverse
+
+   bell
+#
+#watchfor /FAILED su for root/
+ #  exec echo "Subject: auth: FAILED su for root\n\n$_\n" | sendmail "100pallav@gmail.com""
+
+
+# System crashes and halts
+
+watchfor  /(panic|halt)/
+
+   echo
+
+   bell
+
+   mail
+
+   exec "call_pager 3667615 0911"
+
+
+
+# System reboots
+
+watchfor  /SunOS Release/
+
+   echo
+
+   bell
+
+   mail
+
+   exec "call_pager 3667615 0411"
