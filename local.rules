@@ -4,7 +4,6 @@
 # ----------------
 # This file intentionally does not come with signatures.  Put your local
 # additions here.
-
-
-alert tcp any any -> $HOME_NET 80 (msg:"BAD-TRAFFIC loopback traffic";priority:6; classtype:bad-unknown; sid:52800010; rev:1;)
+alert tcp any any -> $HTTP_SERVERS 80 (msg:"Get Request flood attack";priority:1;flow:to_server; content:"GET"; nocase; http_method;  threshold: type threshold, track by_dst, count 1, seconds 1 ; clas$
 alert icmp any any -> $HOME_NET any (msg:"Someone ping atttacking"; GID:1; priority:4; sid:100000010; rev:001; classtype:icmp-event;)
+#alert tcp any any -> $HOME_NET 80 (msg:"BAD-TRAFFIC loopback traffic";priority:6; classtype:bad-unknown; sid:52800010; rev:1;)
